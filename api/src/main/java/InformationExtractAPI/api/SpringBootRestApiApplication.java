@@ -11,7 +11,7 @@ import preprocessing.core.PreProcessing;
 @SpringBootApplication
 public class SpringBootRestApiApplication {
     public static void main(String[] args) throws IOException {
-    	PreProcessing.setFilesPath(new File("C:\\Users\\werli\\projects\\tess"));
+    	PreProcessing.setFilesPath(new File("src/main/resources/tess"));
     	
         SpringApplication.run(SpringBootRestApiApplication.class, args);
     }

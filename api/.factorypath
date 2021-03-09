@@ -171,4 +171,6 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/apache/pdfbox/pdfbox/2.0.18/pdfbox-2.0.18.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/apache/pdfbox/fontbox/2.0.18/fontbox-2.0.18.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/commons-logging/commons-logging/1.2/commons-logging-1.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="/home/matrix/Documentos/workspaces/bombeiros/ocr novo/ocr/api/lib/preprocessing.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="/home/matrix/Documentos/workspaces/bombeiros/ocr novo/ocr/api/lib/opencv451.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>

@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringBootRestApiApplication<api>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "informationextractapi.api.SpringBootRestApiApplication",
+            "projectName": "api",
+            "args": "",
+            "vmArgs": "-Djava.library.path=lib/natives"
+        }
+    ]
+}

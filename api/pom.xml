@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>InformationExtractAPI</groupId>
@@ -58,11 +56,11 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		  </dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -158,7 +156,42 @@
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.18</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.digitalse</groupId>
+			<artifactId>preprocessing</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/preprocessing.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>org.digitalse</groupId>
+			<artifactId>opencv</artifactId>
+			<version>4.5.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/opencv451.jar</systemPath>
+		</dependency>
+
+		<!-- <dependency>
+			<groupId>org.digitalse</groupId>
+			<artifactId>libopencv</artifactId>
+			<version>4.5.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/libopencv_java451.so</systemPath>
+		</dependency> -->
+
+		<dependency>
+			<groupId>org.digitalse</groupId>
+			<artifactId>libopencv</artifactId>
+			<version>4.5.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/natives/libopencv_java451.so</systemPath>
+			<type>so</type>
+			<classifier>linux-x86_64</classifier>
+		</dependency>
 	</dependencies>
+
 
 	<dependencyManagement>
 		<dependencies>
@@ -174,6 +207,27 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<dependencySet>
+						<outputDirectory>lib/native</outputDirectory>
+						<outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+						<unpack>false</unpack>
+						<useProjectArtifact>false</useProjectArtifact>
+						<useStrictFiltering>false</useStrictFiltering>
+						<includes>
+							<include>*:*:dll:*</include>
+							<include>*:*:so:*</include>
+							<include>*:*:jnilib:*</include>
+						</includes>
+					</dependencySet>    
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

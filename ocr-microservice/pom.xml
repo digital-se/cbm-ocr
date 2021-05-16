@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>tcc.tesseract</groupId>
-	<artifactId>microservice</artifactId>
+	<artifactId>ocr-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservice</name>
+	<name>ocr-microservice</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

@@ -1,11 +1,9 @@
 version: '3'
 services:
   ocr-konga_dev:
-    container_name: ocr-konga
+    container_name: ocr-konga-dev
     build:
       context: .
-      # args:
-      #   - img=webdevops/php-apache-dev:7.4 #??
     ports:
       - "9080:80"
       - "9443:443"
@@ -19,12 +17,10 @@ services:
     #   JWT_SECRET: asdasdasdasd
     #   PHP_DATE_TIMEZONE: America/Maceio
     #   XDEBUG_REMOTE_AUTOSTART: 1
-    ocr-konga_homologa:
-    container_name: ocr-konga
+  ocr-konga_homologa:
+    container_name: ocr-konga-homologa
     build:
       context: .
-      # args:
-      #   - img=webdevops/php-apache:7.4 #??
     ports:
       - "9080:80"
       - "9443:443"
@@ -38,14 +34,13 @@ services:
     #   PHP_DATE_TIMEZONE: America/Maceio
     #   XDEBUG_REMOTE_AUTOSTART: 1
 
-    ocr-konga_prod:
-    container_name: ocr-konga
+  ocr-konga_prod:
+    container_name: ocr-konga-prod
     build:
       context: .
       args:
         - http_proxy=http://187.17.2.254:8080
         - https_proxy=http://187.17.2.254:8080
-        # - img=webdevops/php-apache:7.4 #??
         # - no_proxy=agatha.cbm.se.gov.br, agiliza.cbm.se.gov.br, api-arbitrium.cbm.se.gov.br, api-safepro.cbm.se.gov.br, arbitrium.cbm.se.gov.br, asplan.cbm.se.gov.br, ava.cbm.se.gov.br, bmrh.cbm.se.gov.br, boletins.cbm.se.gov.br, boletos.cbm.se.gov.br, concurso.cbm.se.gov.br, dat.cbm.se.gov.br, escalas.cbm.se.gov.br, esic.cbm.se.gov.br, git.cbm.se.gov.br, hidrante.cbm.se.gov.br, jenkins.cbm.se.gov.br, jucese.cbm.se.gov.br, k8s.cbm.se.gov.br, pericia.cbm.se.gov.br, seguranca.cbm.se.gov.br
     ports:
       - "9080:80"
@@ -64,4 +59,4 @@ services:
 networks:
   default:
     external:
-      name: dev
+      name: internal

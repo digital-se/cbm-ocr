@@ -2,10 +2,10 @@
 # ARG img
 # FROM $img
 
-#EXPOSE 80 443 9000
+# EXPOSE 80 443 9000
 
-# ARG http_proxy
-# ARG https_proxy
+ARG http_proxy
+ARG https_proxy
 
 #spring maven
 FROM openjdk:15.0.2-jdk

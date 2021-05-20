@@ -51,7 +51,7 @@ pipeline {
                 extensions: scm.extensions,
                 userRemoteConfigs: [[
                     url: 'git@github.com:digitalse-bomb/ocr.git',
-                    credentialsId: ' b14b70ff-b4ab-412b-bce4-57a62c9c3259'
+                    credentialsId: 'b14b70ff-b4ab-412b-bce4-57a62c9c3259'
                 ]]
             ])
         // checkout([

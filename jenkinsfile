@@ -50,7 +50,7 @@ pipeline {
                 branches: [[name: '*/main' ]],
                 extensions: scm.extensions,
                 userRemoteConfigs: [[
-                    url: 'git@github.com:digitalse-bomb/ocr.git',
+                    url: 'https://github.com/digitalse-bomb/ocr.git',
                     credentialsId: 'b14b70ff-b4ab-412b-bce4-57a62c9c3259'
                 ]]
             ])

@@ -88,59 +88,59 @@ pipeline {
       }
       post{
         failure {
-          slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Buildar Projeto"
+          //slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Buildar Projeto"
 					discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit: ", webhookURL: WEBHOOK
-          updateGitlabCommitStatus name: 'Make Project', state: 'failed'
+          //updateGitlabCommitStatus name: 'Make Project', state: 'failed'
         }
       }
     }
-    stage('Install Deps') {
-      steps {
-        //slackSend color: "warning", message: "${NAME_PROJECT} - ${BRANCH} Instalando dependências"
-        discordSend link: env.BUILD_URL, description: "DigitalSE - ..... ${NAME_PROJECT} - ${BRANCH} Instalando dependências", webhookURL: WEBHOOK, result: 'UNSTABLE'
-        //updateGitlabCommitStatus name: 'Install Deps', state: 'running'
-        sh 'cd /deploys/$NAME_PROJECT && make install-deps'
-        //updateGitlabCommitStatus name: 'Install Deps', state: 'success'
-      }
-      post{
-        failure {
-          //slackSend color: "danger", message: "DigitalSE - ..... ${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao instalar dependências"
-          discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit:", webhookURL: WEBHOOK
-          //updateGitlabCommitStatus name: 'Install Deps', state: 'failed'
-        }
-      }
-    }
-    stage('Make Permission') {
-      steps {
-        //slackSend color: "warning", message: "DigitalSE - ..... :sweat_smile: ..... ${NAME_PROJECT} - ${BRANCH} Dando permission projeto"
-        discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :sweat_smile: ${NAME_PROJECT} - ${BRANCH} Dando permission projeto", webhookURL: WEBHOOK, result: 'UNSTABLE'
-        sh 'cd /deploys/$NAME_PROJECT && make permission'
-        //updateGitlabCommitStatus name: 'Make Permission', state: 'success'
-      }
-      post{
-        failure {
-          //slackSend color: "danger", message: "DigitalSE - ..... ${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao dar permissão"
-					//slackSend color: "danger", message: "DigitalSE - ..... Corrija sua :shit:"
-					discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit:", webhookURL: WEBHOOK
-          //updateGitlabCommitStatus name: 'Make Permission', state: 'failed'
-        }
-      }
-    }
-    stage('Create Version') {
-      steps {
-        //updateGitlabCommitStatus name: 'Create Version', state: 'running'
-        echo "Running ${env.BUILD_ID} on ${env.BUILD_NUMBER}"
-        //slackSend color: "good", message: "DigitalSE - .....${currentBuild.fullDisplayName} - ${NAME_PROJECT} - ${BRANCH} Build ${env.BUILD_ID} implementado"
-        //updateGitlabCommitStatus name: 'Create Version', state: 'success'
-        discordSend link: env.BUILD_URL, description: "DigitalSE - ..... ${NAME_PROJECT} - ${BRANCH} ", webhookURL: WEBHOOK, result: 'SUCCESS'
-      }
-      post{
-        failure {
-          //slackSend color: "danger", message: "${currentBuild.fullDisplayName} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Buildar Projeto"
-          discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit:", webhookURL: WEBHOOK
-          //updateGitlabCommitStatus name: 'Create Version', state: 'failed'
-        }
-      }
-    }
+    // stage('Install Deps') {
+    //   steps {
+    //     //slackSend color: "warning", message: "${NAME_PROJECT} - ${BRANCH} Instalando dependências"
+    //     discordSend link: env.BUILD_URL, description: "DigitalSE - ..... ${NAME_PROJECT} - ${BRANCH} Instalando dependências", webhookURL: WEBHOOK, result: 'UNSTABLE'
+    //     //updateGitlabCommitStatus name: 'Install Deps', state: 'running'
+    //     sh 'cd /deploys/$NAME_PROJECT && make install-deps'
+    //     //updateGitlabCommitStatus name: 'Install Deps', state: 'success'
+    //   }
+    //   post{
+    //     failure {
+    //       //slackSend color: "danger", message: "DigitalSE - ..... ${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao instalar dependências"
+    //       discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit:", webhookURL: WEBHOOK
+    //       //updateGitlabCommitStatus name: 'Install Deps', state: 'failed'
+    //     }
+    //   }
+    // }
+    // stage('Make Permission') {
+    //   steps {
+    //     //slackSend color: "warning", message: "DigitalSE - ..... :sweat_smile: ..... ${NAME_PROJECT} - ${BRANCH} Dando permission projeto"
+    //     discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :sweat_smile: ${NAME_PROJECT} - ${BRANCH} Dando permission projeto", webhookURL: WEBHOOK, result: 'UNSTABLE'
+    //     sh 'cd /deploys/$NAME_PROJECT && make permission'
+    //     //updateGitlabCommitStatus name: 'Make Permission', state: 'success'
+    //   }
+    //   post{
+    //     failure {
+    //       //slackSend color: "danger", message: "DigitalSE - ..... ${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao dar permissão"
+		// 			//slackSend color: "danger", message: "DigitalSE - ..... Corrija sua :shit:"
+		// 			discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit:", webhookURL: WEBHOOK
+    //       //updateGitlabCommitStatus name: 'Make Permission', state: 'failed'
+    //     }
+    //   }
+    // }
+    // stage('Create Version') {
+    //   steps {
+    //     //updateGitlabCommitStatus name: 'Create Version', state: 'running'
+    //     echo "Running ${env.BUILD_ID} on ${env.BUILD_NUMBER}"
+    //     //slackSend color: "good", message: "DigitalSE - .....${currentBuild.fullDisplayName} - ${NAME_PROJECT} - ${BRANCH} Build ${env.BUILD_ID} implementado"
+    //     //updateGitlabCommitStatus name: 'Create Version', state: 'success'
+    //     discordSend link: env.BUILD_URL, description: "DigitalSE - ..... ${NAME_PROJECT} - ${BRANCH} ", webhookURL: WEBHOOK, result: 'SUCCESS'
+    //   }
+    //   post{
+    //     failure {
+    //       //slackSend color: "danger", message: "${currentBuild.fullDisplayName} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Buildar Projeto"
+    //       discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit:", webhookURL: WEBHOOK
+    //       //updateGitlabCommitStatus name: 'Create Version', state: 'failed'
+    //     }
+    //   }
+    // }
 	}
 }

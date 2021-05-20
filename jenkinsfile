@@ -64,17 +64,17 @@ pipeline {
         // ])
     //     updateGitlabCommitStatus name: 'Clone Project', state: 'success'
     //     sh 'ls -lah'
-    //   }
-    //   post {
-    //     failure {
-    //       slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto"
-		// 			slackSend color: "danger", message: "Deu merda .... Corrija sua :shit:"
-		// 			discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto", webhookURL: WEBHOOK
-		// 			discordSend link: env.BUILD_URL, description: "Deu merda ao Clonar Projeto .... Corrija sua :shit:", webhookURL: WEBHOOK
-    //       updateGitlabCommitStatus name: 'Clone Project', state: 'failed'
-    //     }
-    //   }
-    // }
+      }
+      post {
+        failure {
+          // slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto"
+					// slackSend color: "danger", message: "Deu merda .... Corrija sua :shit:"
+					discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto", webhookURL: WEBHOOK
+					discordSend link: env.BUILD_URL, description: "Deu merda ao Clonar Projeto .... Corrija sua :shit:", webhookURL: WEBHOOK
+          updateGitlabCommitStatus name: 'Clone Project', state: 'failed'
+        }
+      }
+    }
     // stage('Make Project') {
     //   steps {
     //     dir('/deploys/bulletins') {

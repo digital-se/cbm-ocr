@@ -23,7 +23,7 @@ pipeline {
 
     // stage('Delete Folder TEMP') {
     //   steps {
-    //     slackSend color: "good", message: "hum :yawning_face: pois é Guinho .... de novo né?"
+    //     slackSend color: "good", message: "---EM CONSTRUÇÃO---"
     //     slackSend color: "warning", message: "deixe eu limpar a casa..... ${NAME_PROJECT} - ${BRANCH} Deletando pasta temporaria"
     //     discordSend link: env.BUILD_URL, description: "hum :yawning_face: pois é .... de novo né?", webhookURL: WEBHOOK, unstable: true
     //     discordSend link: env.BUILD_URL, description: "deixe eu limpar a casa..... ${NAME_PROJECT} - ${BRANCH} Deletando pasta temporaria", webhookURL: WEBHOOK, unstable: true, successful: true
@@ -46,27 +46,35 @@ pipeline {
     //     updateGitlabCommitStatus name: 'Clone Project', state: 'running'
     //     slackSend color: "warning", message: "Me de logo va  ..... ${NAME_PROJECT} - ${BRANCH} Clonando o projeto"
     //     discordSend link: env.BUILD_URL, description: ":yawning_face: Me de logo va  ..... ${NAME_PROJECT} - ${BRANCH} Clonando o projeto", webhookURL: WEBHOOK, successful: true, result: 'UNSTABLE'
-    //     checkout([
-    //       $class: 'GitSCM', 
-    //       branches: [[name: '*/develop']],
-    //       doGenerateSubmoduleConfigurations: false,
-    //       extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/deploys/bulletins']], 
-    //       submoduleCfg: [], 
-    //       userRemoteConfigs: [[url: 'https://jenkins:cbmse108709.*@git.cbm.se.gov.br/cbm/bulletins']]
-    //     ])
-    //     updateGitlabCommitStatus name: 'Clone Project', state: 'success'
-    //     sh 'ls -lah'
-    //   }
-    //   post {
-    //     failure {
-    //       slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto"
-		// 			slackSend color: "danger", message: "Deu merda .... Corrija sua :shit:"
-		// 			discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto", webhookURL: WEBHOOK
-		// 			discordSend link: env.BUILD_URL, description: "Deu merda ao Clonar Projeto .... Corrija sua :shit:", webhookURL: WEBHOOK
-    //       updateGitlabCommitStatus name: 'Clone Project', state: 'failed'
-    //     }
-    //   }
-    // }
+    //     checkout([$class: 'GitSCM',
+    //             branches: [[name: '*/main' ]],
+    //             extensions: scm.extensions,
+    //             userRemoteConfigs: [[
+    //                 url: 'https://github.com/digitalse-bomb/ocr.git',
+    //                 credentialsId: 'my-gitlab-repo-creds'
+    //             ]]
+    //         ])
+        // checkout([
+        //   $class: 'GitSCM', 
+        //   branches: [[name: '*/develop']],
+        //   doGenerateSubmoduleConfigurations: false,
+        //   extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/deploys/bulletins']], 
+        //   submoduleCfg: [], 
+        //   userRemoteConfigs: [[url: 'https://jenkins:cbmse108709.*@git.cbm.se.gov.br/cbm/bulletins']]
+        // ])
+        updateGitlabCommitStatus name: 'Clone Project', state: 'success'
+        sh 'ls -lah'
+      }
+      post {
+        failure {
+          slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto"
+					slackSend color: "danger", message: "Deu merda .... Corrija sua :shit:"
+					discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto", webhookURL: WEBHOOK
+					discordSend link: env.BUILD_URL, description: "Deu merda ao Clonar Projeto .... Corrija sua :shit:", webhookURL: WEBHOOK
+          updateGitlabCommitStatus name: 'Clone Project', state: 'failed'
+        }
+      }
+    }
     // stage('Make Project') {
     //   steps {
     //     dir('/deploys/bulletins') {

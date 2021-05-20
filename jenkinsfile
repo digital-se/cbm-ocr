@@ -15,19 +15,19 @@ pipeline {
   }
   stages {
 
-    stage("Teste do marco") {
-      steps {
-        discordSend link: env.BUILD_URL, description: "testado :smiley: funciona =D", webhookURL: WEBHOOK, successful: true
-        discordSend link: env.BUILD_URL, description: "testado :shit: deu ruim D=", webhookURL: WEBHOOK, result: 'WARNING'
-      }
-    }
+    // stage("Teste do marco") {
+    //   steps {
+    //     discordSend link: env.BUILD_URL, description: "testado :smiley: funciona =D", webhookURL: WEBHOOK, successful: true
+    //     discordSend link: env.BUILD_URL, description: "testado :shit: deu ruim D=", webhookURL: WEBHOOK, result: 'WARNING'
+    //   }
+    // }
 
     stage('Delete Folder TEMP') {
       steps {
         // slackSend color: "good", message: "---EM CONSTRUÇÃO---"
         // slackSend color: "warning", message: "deixe eu limpar a casa..... ${NAME_PROJECT} - ${BRANCH} Deletando pasta temporaria"
-        discordSend link: env.BUILD_URL, description: "hum :yawning_face: ---EM CONSTRUÇÃO---", webhookURL: WEBHOOK, unstable: true
-        discordSend link: env.BUILD_URL, description: "---EM CONSTRUÇÃO--- ${NAME_PROJECT} - ${BRANCH} ---EM CONSTRUÇÃO---", webhookURL: WEBHOOK, unstable: true, successful: true
+        // discordSend link: env.BUILD_URL, description: "hum :yawning_face: ---EM CONSTRUÇÃO---", webhookURL: WEBHOOK, unstable: true
+        discordSend link: env.BUILD_URL, description: "-TESTES- Delete Folder Temp ${NAME_PROJECT} - ${BRANCH} -TESTES-", webhookURL: WEBHOOK, unstable: true, successful: true
         updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'running'
         sh 'cd /deploys && rm -rf $NAME_PROJECT'
         updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'success'
@@ -36,8 +36,8 @@ pipeline {
         failure {
           //slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} :rage: Erro ao tentar deletar a pasta"
 					//slackSend color: "danger", message: "Deu merda .... Corrija sua cagada :shit:"
-					discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} :rage: Erro ao tentar deletar a pasta", webhookURL: WEBHOOK, result: 'WARNING'
-					discordSend link: env.BUILD_URL, description: "---EM CONSTRUÇÃO--- :shit:", webhookURL: WEBHOOK, result: 'WARNING'
+					discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} -TESTES- Erro ao tentar deletar a pasta", webhookURL: WEBHOOK, result: 'WARNING'
+					// discordSend link: env.BUILD_URL, description: "---EM CONSTRUÇÃO--- :shit:", webhookURL: WEBHOOK, result: 'WARNING'
           updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'failed'
         }
       }
@@ -69,8 +69,8 @@ pipeline {
         failure {
           // slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto"
 					// slackSend color: "danger", message: "Deu merda .... Corrija sua :shit:"
-					discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto", webhookURL: WEBHOOK
-					discordSend link: env.BUILD_URL, description: "Deu merda ao Clonar Projeto .... Corrija sua :shit:", webhookURL: WEBHOOK
+					discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} -TESTES- Erro ao Clonar Projeto", webhookURL: WEBHOOK
+					//discordSend link: env.BUILD_URL, description: "Deu merda ao Clonar Projeto .... Corrija sua :shit:", webhookURL: WEBHOOK
           updateGitlabCommitStatus name: 'Clone Project', state: 'failed'
         }
       }

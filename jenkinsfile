@@ -18,42 +18,42 @@ pipeline {
     stage("Teste do marco") {
       steps {
         discordSend link: env.BUILD_URL, description: "testado :smiley: funciona =D", webhookURL: WEBHOOK, successful: true
+        discordSend link: env.BUILD_URL, description: "testado :shit: deu ruim D=", webhookURL: WEBHOOK, result: 'WARNING'
       }
     }
 
-    // stage('Delete Folder TEMP') {
-    //   steps {
-    //     slackSend color: "good", message: "---EM CONSTRUÇÃO---"
-    //     slackSend color: "warning", message: "deixe eu limpar a casa..... ${NAME_PROJECT} - ${BRANCH} Deletando pasta temporaria"
-    //     discordSend link: env.BUILD_URL, description: "hum :yawning_face: pois é .... de novo né?", webhookURL: WEBHOOK, unstable: true
-    //     discordSend link: env.BUILD_URL, description: "deixe eu limpar a casa..... ${NAME_PROJECT} - ${BRANCH} Deletando pasta temporaria", webhookURL: WEBHOOK, unstable: true, successful: true
-    //     updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'running'
-    //     sh 'cd /deploys && rm -rf $NAME_PROJECT'
-    //     updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'success'
-    //   }
-    //   post{
-    //     failure {
-    //       slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} :rage: Erro ao tentar deletar a pasta"
-		// 			slackSend color: "danger", message: "Deu merda .... Corrija sua cagada :shit:"
-		// 			discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} :rage: Erro ao tentar deletar a pasta", webhookURL: WEBHOOK, result: 'WARNING'
-		// 			discordSend link: env.BUILD_URL, description: "Deu merda .... Corrija sua cagada :shit:", webhookURL: WEBHOOK, result: 'WARNING'
-    //       updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'failed'
-    //     }
-    //   }
-    // }
-    // stage('Clone Project') {
-    //   steps {
-    //     updateGitlabCommitStatus name: 'Clone Project', state: 'running'
-    //     slackSend color: "warning", message: "Me de logo va  ..... ${NAME_PROJECT} - ${BRANCH} Clonando o projeto"
-    //     discordSend link: env.BUILD_URL, description: ":yawning_face: Me de logo va  ..... ${NAME_PROJECT} - ${BRANCH} Clonando o projeto", webhookURL: WEBHOOK, successful: true, result: 'UNSTABLE'
-    //     checkout([$class: 'GitSCM',
-    //             branches: [[name: '*/main' ]],
-    //             extensions: scm.extensions,
-    //             userRemoteConfigs: [[
-    //                 url: 'https://github.com/digitalse-bomb/ocr.git',
-    //                 credentialsId: 'my-gitlab-repo-creds'
-    //             ]]
-    //         ])
+    stage('Delete Folder TEMP') {
+      steps {
+        // slackSend color: "good", message: "---EM CONSTRUÇÃO---"
+        // slackSend color: "warning", message: "deixe eu limpar a casa..... ${NAME_PROJECT} - ${BRANCH} Deletando pasta temporaria"
+        discordSend link: env.BUILD_URL, description: "hum :yawning_face: ---EM CONSTRUÇÃO---", webhookURL: WEBHOOK, unstable: true
+        discordSend link: env.BUILD_URL, description: "---EM CONSTRUÇÃO--- ${NAME_PROJECT} - ${BRANCH} ---EM CONSTRUÇÃO---", webhookURL: WEBHOOK, unstable: true, successful: true
+        updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'running'
+        sh 'cd /deploys && rm -rf $NAME_PROJECT'
+        updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'success'
+      }
+      post{
+        failure {
+          //slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} :rage: Erro ao tentar deletar a pasta"
+					//slackSend color: "danger", message: "Deu merda .... Corrija sua cagada :shit:"
+					discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} :rage: Erro ao tentar deletar a pasta", webhookURL: WEBHOOK, result: 'WARNING'
+					discordSend link: env.BUILD_URL, description: "---EM CONSTRUÇÃO--- :shit:", webhookURL: WEBHOOK, result: 'WARNING'
+          updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'failed'
+        }
+      }
+    }
+    stage('Clone Project') {
+      steps {
+        updateGitlabCommitStatus name: 'Clone Project', state: 'running'
+        discordSend link: env.BUILD_URL, description: "VENHA ${NAME_PROJECT} - ${BRANCH} Clonando o projeto", webhookURL: WEBHOOK, successful: true, result: 'UNSTABLE'
+        checkout([$class: 'GitSCM',
+                branches: [[name: '*/main' ]],
+                extensions: scm.extensions,
+                userRemoteConfigs: [[
+                    url: 'git@github.com:digitalse-bomb/ocr.git',
+                    credentialsId: 'SHA256:vVcit2kCMXyOqtv0Y6cNjOHEK658si/yklSrwFnSL1Y'
+                ]]
+            ])
         // checkout([
         //   $class: 'GitSCM', 
         //   branches: [[name: '*/develop']],

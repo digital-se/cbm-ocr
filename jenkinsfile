@@ -76,24 +76,24 @@ pipeline {
         }
       }
     }
-    stage('Make Project') {
-      steps {
-        // dir('/deploys/bulletins') {
-        //   slackSend color: "warning", message: "DigitalSE - ..... ${NAME_PROJECT} - ${BRANCH} Buildando projeto"
-        //   discordSend link: env.BUILD_URL, description: "DigitalSE - ..... ${NAME_PROJECT} - ${BRANCH} Buildando projeto", webhookURL: WEBHOOK, result: 'UNSTABLE'
-        //   updateGitlabCommitStatus name: 'Make Project', state: 'running'
-        //   sh 'make deploy_hml'
-        //   updateGitlabCommitStatus name: 'Make Project', state: 'success'
-        // }
-      }
-      post{
-        failure {
-          //slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Buildar Projeto"
-					discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit: ", webhookURL: WEBHOOK
-          //updateGitlabCommitStatus name: 'Make Project', state: 'failed'
-        }
-      }
-    }
+    // stage('Make Project') {
+    //   steps {
+    //     // dir('/deploys/bulletins') {
+    //     //   slackSend color: "warning", message: "DigitalSE - ..... ${NAME_PROJECT} - ${BRANCH} Buildando projeto"
+    //     //   discordSend link: env.BUILD_URL, description: "DigitalSE - ..... ${NAME_PROJECT} - ${BRANCH} Buildando projeto", webhookURL: WEBHOOK, result: 'UNSTABLE'
+    //     //   updateGitlabCommitStatus name: 'Make Project', state: 'running'
+    //     //   sh 'make deploy_hml'
+    //     //   updateGitlabCommitStatus name: 'Make Project', state: 'success'
+    //     // }
+    //   }
+    //   post{
+    //     failure {
+    //       //slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Buildar Projeto"
+		// 			discordSend link: env.BUILD_URL, description: "DigitalSE - ..... :shit: ", webhookURL: WEBHOOK
+    //       //updateGitlabCommitStatus name: 'Make Project', state: 'failed'
+    //     }
+    //   }
+    // }
     // stage('Install Deps') {
     //   steps {
     //     //slackSend color: "warning", message: "${NAME_PROJECT} - ${BRANCH} Instalando dependências"

@@ -62,19 +62,19 @@ pipeline {
         //   submoduleCfg: [], 
         //   userRemoteConfigs: [[url: 'https://jenkins:cbmse108709.*@git.cbm.se.gov.br/cbm/bulletins']]
         // ])
-        updateGitlabCommitStatus name: 'Clone Project', state: 'success'
-        sh 'ls -lah'
-      }
-      post {
-        failure {
-          slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto"
-					slackSend color: "danger", message: "Deu merda .... Corrija sua :shit:"
-					discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto", webhookURL: WEBHOOK
-					discordSend link: env.BUILD_URL, description: "Deu merda ao Clonar Projeto .... Corrija sua :shit:", webhookURL: WEBHOOK
-          updateGitlabCommitStatus name: 'Clone Project', state: 'failed'
-        }
-      }
-    }
+    //     updateGitlabCommitStatus name: 'Clone Project', state: 'success'
+    //     sh 'ls -lah'
+    //   }
+    //   post {
+    //     failure {
+    //       slackSend color: "danger", message: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto"
+		// 			slackSend color: "danger", message: "Deu merda .... Corrija sua :shit:"
+		// 			discordSend link: env.BUILD_URL, description: "${NAME_PROJECT} - ${env.JOB_NAME} #${env.BUILD_NUMBER} Erro ao Clonar Projeto", webhookURL: WEBHOOK
+		// 			discordSend link: env.BUILD_URL, description: "Deu merda ao Clonar Projeto .... Corrija sua :shit:", webhookURL: WEBHOOK
+    //       updateGitlabCommitStatus name: 'Clone Project', state: 'failed'
+    //     }
+    //   }
+    // }
     // stage('Make Project') {
     //   steps {
     //     dir('/deploys/bulletins') {

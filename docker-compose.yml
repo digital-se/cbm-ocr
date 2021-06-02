@@ -9,3 +9,8 @@ services:
       dockerfile: dockerfile
     ports:
       - '3306:8083'
+      
+networks:
+  default:
+    external:
+      name: internal

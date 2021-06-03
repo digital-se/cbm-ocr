@@ -7,6 +7,7 @@ pipeline {
     }
     environment {
         NAME_PROJECT = 'digitalse-cbm-ocr'
+        FOLDER_PROJECT = 'ocr'
         BRANCH = 'main'
         WEBHOOK = 'https://discord.com/api/webhooks/750364129340162110/gLwZFqrOTulHdOERp4Yv5BZvFkvmvI9JvnpxN1Ir4121hnV_XmUOz4WB6ZfkBbiuFYgs'
     }
@@ -29,7 +30,7 @@ pipeline {
             // discordSend link: env.BUILD_URL, description: "hum :yawning_face: ---EM CONSTRUÇÃO---", webhookURL: WEBHOOK, unstable: true
             discordSend link: env.BUILD_URL, description: "DigitalSE - _Deletando pasta temporaria da branch_ **${BRANCH}** _do projeto_ **${NAME_PROJECT}**", webhookURL: WEBHOOK, unstable: true, successful: true
             // updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'running'
-            sh 'cd /deploys && rm -rf $NAME_PROJECT'
+            sh 'cd /deploys/digitalse && rm -rf $FOLDER_PROJECT'
             // updateGitlabCommitStatus name: 'Delete Folder TEMP', state: 'success'
         }
         post{

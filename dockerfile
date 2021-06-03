@@ -1,14 +1,11 @@
-# cbm
-# ARG img
-# FROM $img
+FROM maven:3.8.1-openjdk-15-slim AS build
+RUN mkdir -p /workspace
+WORKDIR /workspace
+COPY pom.xml /workspace
+COPY src /workspace/src
+RUN mvn -B -f pom.xml clean package -DskipTests
 
-# EXPOSE 80 443 9000
-
-ARG http_proxy
-ARG https_proxy
-
-#spring maven
-FROM openjdk:15.0.2-jdk
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:15-jdk-slim
+COPY --from=build /workspace/target/*.jar app.jar
+EXPOSE 8083
+ENTRYPOINT ["java","-jar","app.jar"]

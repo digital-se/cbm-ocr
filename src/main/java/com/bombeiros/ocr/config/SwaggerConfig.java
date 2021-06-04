@@ -1,4 +1,4 @@
-package tcc.tesseract.microservice.config;
+package com.bombeiros.ocr.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.bombeiros.ocr.controller;
+package tcc.tesseract.microservice.controller;
 
 import java.awt.image.BufferedImage;
 

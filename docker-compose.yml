@@ -4,6 +4,8 @@ services:
 
   digitalse-cbm-ocr:
     container_name: digitalse-cbm-ocr
+    environment:
+      - SECRET
     build:
       context: .
       dockerfile: dockerfile

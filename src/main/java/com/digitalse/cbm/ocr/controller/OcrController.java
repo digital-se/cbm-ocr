@@ -1,9 +1,14 @@
 package com.digitalse.cbm.ocr.controller;
 
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import com.digitalse.cbm.ocr.utils.TokenExtract;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -30,22 +34,37 @@ public class OcrController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção") })
 	@PostMapping("/extrair")
 	public ResponseEntity<String> extrair(@RequestParam(name = "file") MultipartFile file) throws Exception {
-		//Adicionar o JAVACV
-		String resultado = "";
-
 		BufferedImage img = ImageIO.read(file.getInputStream());
+    	ITesseract tess4j = new Tesseract();
 
-		ITesseract tesseract = new Tesseract();
+		tess4j.setTessVariable("user_defined_dpi", "300");
+		tess4j.setDatapath("src/main/resources/tess/tessdata");
+		tess4j.setLanguage("por");
 
-		tesseract.setDatapath("src/main/resources/tess/tessdata");
-		tesseract.setLanguage("por");
+		// try {
+		// 	resultado = tess4j.doOCR(img);
+		// } catch (TesseractException e) {
+		// 	throw new Exception("Erro na tentativa de ler o arquivo");
+		// }
 
 		try {
-			resultado = tesseract.doOCR(img);
-		} catch (TesseractException e) {
-			throw new Exception("Erro na tentativa de ler o arquivo");
-		}
-		return ResponseEntity.ok(resultado);
+            String result = tess4j.doOCR(img);
+            List<String> listResult = Arrays.asList(TokenExtract.token(result));
+            //Identico ao for abaixo
+            // String res[] = te.token(result);
+            //Arrays.stream(res).forEach(r -> {System.out.println(r);});
+            listResult.forEach(r -> {System.out.println(r);});
+            for(String r: listResult) {
+            	System.out.println(r);
+            }
+			return ResponseEntity.ok(result);
+        } catch (TesseractException e) {
+            System.err.println(e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+
+		
 	}
 
 }

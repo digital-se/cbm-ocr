@@ -1,9 +1,8 @@
 package com.digitalse.cbm.ocr.controller;
 
-import java.awt.image.BufferedImage;
+import com.digitalse.cbm.ocr.service.OcrService;
 
-import javax.imageio.ImageIO;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,13 +14,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
-
 @RestController
 @RequestMapping("/ocr")
 public class OcrController {
+
+	@Autowired
+	private OcrService ocrService;
 
 	@ApiOperation(value = "Retorna texto lido na imagem enviada")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retornou o texto contido na imagem"),
@@ -30,22 +28,8 @@ public class OcrController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção") })
 	@PostMapping("/extrair")
 	public ResponseEntity<String> extrair(@RequestParam(name = "file") MultipartFile file) throws Exception {
-		//Adicionar o JAVACV
-		String resultado = "";
-
-		BufferedImage img = ImageIO.read(file.getInputStream());
-
-		ITesseract tesseract = new Tesseract();
-
-		tesseract.setDatapath("src/main/resources/tess/tessdata");
-		tesseract.setLanguage("por");
-
-		try {
-			resultado = tesseract.doOCR(img);
-		} catch (TesseractException e) {
-			throw new Exception("Erro na tentativa de ler o arquivo");
-		}
-		return ResponseEntity.ok(resultado);
+		String result = ocrService.ocrScanImage(file);
+		return ResponseEntity.ok(result);
 	}
 
 }

@@ -13,6 +13,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -23,13 +24,14 @@ public class RabbitMQService {
     public Connection connection;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void startConnection()
+    public void startConnection(@Value("${rabbit.host}") String host, @Value("${rabbit.port}") int port,
+            @Value("${rabbit.username}") String username, @Value("${rabbit.password}") String password)
             throws IOException, TimeoutException, KeyManagementException, NoSuchAlgorithmException, URISyntaxException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        factory.setPort(3309);
-        factory.setUsername("back");
-        factory.setPassword("cbm");
+        factory.setHost(host);
+        factory.setPort(port);
+        factory.setUsername(username);
+        factory.setPassword(password);
         connection = factory.newConnection();
         getMessage();
     }

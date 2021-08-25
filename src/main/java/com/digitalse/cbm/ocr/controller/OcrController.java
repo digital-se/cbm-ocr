@@ -1,6 +1,9 @@
 package com.digitalse.cbm.ocr.controller;
 
-import com.digitalse.cbm.ocr.service.OcrService;
+import javax.imageio.ImageIO;
+
+import com.digitalse.cbm.ocr.service.TesseractService;
+import java.awt.image.BufferedImage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +22,7 @@ import io.swagger.annotations.ApiResponses;
 public class OcrController {
 
 	@Autowired
-	private OcrService ocrService;
+	private TesseractService tessService;
 
 	@ApiOperation(value = "Retorna texto lido na imagem enviada")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retornou o texto contido na imagem"),
@@ -28,7 +31,8 @@ public class OcrController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção") })
 	@PostMapping("/extrair")
 	public ResponseEntity<String> extrair(@RequestParam(name = "file") MultipartFile file) throws Exception {
-		String result = ocrService.ocrScanImage(file);
+		BufferedImage img = ImageIO.read(file.getInputStream());
+		String result = tessService.recognize(img);
 		return ResponseEntity.ok(result);
 	}
 

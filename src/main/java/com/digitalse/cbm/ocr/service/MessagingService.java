@@ -13,32 +13,41 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class RabbitMQService {
+@Service
+public class MessagingService {
 
-    public Connection connection;
+    /* public final Connection connection; */
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void startConnection(@Value("${rabbit.host}") String host, @Value("${rabbit.port}") int port,
-            @Value("${rabbit.username}") String username, @Value("${rabbit.password}") String password)
+    /* @Autowired
+    public MessagingService(@Value("${rabbitmq.host}") String host, @Value("${rabbitmq.port}") int port,
+            @Value("${rabbitmq.username}") String username, @Value("${rabbitmq.password}") String password)
             throws IOException, TimeoutException, KeyManagementException, NoSuchAlgorithmException, URISyntaxException {
+        System.out.println("======== " + host + "======== ");
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
         factory.setPort(port);
         factory.setUsername(username);
         factory.setPassword(password);
-        connection = factory.newConnection();
-        getMessage();
-    }
+        this.connection = factory.newConnection();
+        
+    } */
 
-    public void getMessage()
-            throws IOException, TimeoutException, KeyManagementException, NoSuchAlgorithmException, URISyntaxException {
-        try (Channel channel = connection.createChannel()) {
+    /* @RabbitListener(bindings = @QueueBinding(
+        value = @Queue(value = "ocr", durable = "true") , 
+        exchange = @Exchange(value = "digital-se-cbm"), 
+        key = "ocr_1") )
+    public void getMessage(Message message) {
+            System.out.println("Received: " + message);
+            /* String teste;
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("durable", false);
             channel.exchangeDeclare("digital-se-cbm", "direct", true);
@@ -47,10 +56,13 @@ public class RabbitMQService {
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");
+                
             };
 
             channel.basicConsume("ocr", true, deliverCallback, consumerTag -> { });
-        }
+            /* System.out.println(result); */
+            //RFBucketRabbitMQ itemWithOwner = new ObjectMapper().readValue(result, RFBucketRabbitMQ.class); */
+        
 
-    }
+    /*} */
 }

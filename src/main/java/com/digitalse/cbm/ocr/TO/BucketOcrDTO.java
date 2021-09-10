@@ -1,22 +1,21 @@
-package com.digitalse.cbm.ocr.DTO;
+package com.digitalse.cbm.ocr.TO;
 
-import org.springframework.stereotype.Component;
+import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Component
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BucketDTO {
-
+public class BucketOcrDTO implements Serializable {
     private Long id;
+    private Long arquivo_id;
+    private String nome;
     private String mime;
     private Long tamanho;
     private byte[] dados;
-    
 }

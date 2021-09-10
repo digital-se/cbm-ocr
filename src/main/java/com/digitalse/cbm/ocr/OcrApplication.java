@@ -1,5 +1,9 @@
 package com.digitalse.cbm.ocr;
 
+import java.io.IOException;
+
+import javax.annotation.PostConstruct;
+
 import com.digitalse.cbm.ocr.service.OcrService;
 import com.digitalse.cbm.ocr.service.QueueService;
 
@@ -21,4 +25,8 @@ public class OcrApplication {
 		SpringApplication.run(OcrApplication.class, args);
 	}
 
+	@PostConstruct
+	public void updateOcr() throws Exception{
+		qs.getListFromBack();
+	}
 }

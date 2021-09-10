@@ -1,7 +1,6 @@
 version: '3.7'
 
 services:
-
   digitalse-cbm-ocr:
     container_name: digitalse-cbm-ocr
     build:

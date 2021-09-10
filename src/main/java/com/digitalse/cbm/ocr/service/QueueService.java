@@ -25,22 +25,16 @@ public class QueueService {
 
     public LinkedList<Long> queue;
 
-    public QueueService(){
+    public QueueService() {
         queue = new LinkedList<Long>();
     }
 
-    public void queueAdicionar(Long id) throws Exception{
-        queue.add(id);
-		ocrService.realizarScan();
-	}
-
-	public void queueAtualizar(List<Long> lista) throws Exception{
+    public void queueAtualizar(List<Long> lista) throws Exception {
         queue.clear();
         queue.addAll(lista);
+        System.out.println("Queue atualizada: " + queue.toString());
         ocrService.realizarScan();
-	}
-
-    
+    }
 
     public BucketOcrDTO getImage() throws Exception {
         return getImageFromBack(queue.pop());
@@ -52,19 +46,21 @@ public class QueueService {
     }
 
     public void getListFromBack() throws Exception {
-        String url = "http://localhost:9082/ocr/imagem/list";
-        String jsonString = new RestTemplate().getForObject(url, String.class);
-        JsonNode jsonNode = new ObjectMapper().readTree(jsonString);
         List<Long> array = new ArrayList<>();
-        if (jsonNode.isArray()) {
-            queue.clear();
+        try {
+            String url = "http://localhost:9082/ocr/imagem/list";
+            String jsonString = new RestTemplate().getForObject(url, String.class);
+            JsonNode jsonNode = new ObjectMapper().readTree(jsonString);
             
-            for (final JsonNode objNode : jsonNode) {
-                array.add(objNode.asLong());
+            if (jsonNode.isArray()) {
+                for (final JsonNode objNode : jsonNode) {
+                    array.add(objNode.asLong());
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Back-end connection failed");
         }
-
-        queue.addAll(array);
+        queueAtualizar(array);
         System.out.println(queue.toString());
     }
 
@@ -115,7 +111,7 @@ public class QueueService {
             connection.setDoOutput(true);
 
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
-                
+
                 byte[] input = new ObjectMapper().writeValueAsBytes(brf);
                 outputStream.write(input, 0, input.length);
             }

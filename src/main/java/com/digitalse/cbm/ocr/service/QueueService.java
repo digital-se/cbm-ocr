@@ -48,10 +48,10 @@ public class QueueService {
     public void getListFromBack() throws Exception {
         List<Long> array = new ArrayList<>();
         try {
-            String url = "http://localhost:9082/ocr/imagem/list";
+            String url = "http://localhost:8082/ocr/imagem/list";
             String jsonString = new RestTemplate().getForObject(url, String.class);
             JsonNode jsonNode = new ObjectMapper().readTree(jsonString);
-            
+
             if (jsonNode.isArray()) {
                 for (final JsonNode objNode : jsonNode) {
                     array.add(objNode.asLong());
@@ -66,7 +66,7 @@ public class QueueService {
 
     public BucketOcrDTO getImageFromBack(Long id_imagem) throws Exception {
         BucketOcrDTO bucketdto;
-        String url = "http://localhost:9082/ocr/imagem/" + id_imagem;
+        String url = "http://localhost:8082/ocr/imagem/" + id_imagem;
         URL UrlObj = new URL(url);
         int responseCode;
 
@@ -100,7 +100,7 @@ public class QueueService {
 
     public void postToBack(BucketOcrDTO bucketDTO, String text) throws Exception {
         BucketOcrRF brf = new BucketOcrRF(bucketDTO.getId(), bucketDTO.getArquivo_id(), text);
-        String url = "http://localhost:9082/ocr/receberDados";
+        String url = "http://localhost:8082/ocr/receberDados";
         URL UrlObj = new URL(url);
 
         try {

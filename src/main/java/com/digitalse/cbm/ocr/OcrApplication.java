@@ -26,7 +26,7 @@ public class OcrApplication {
 	}
 
 	@PostConstruct
-	public void updateOcr() throws Exception{
+	public void updateOcr() throws Exception {
 		qs.getListFromBack();
 	}
 }

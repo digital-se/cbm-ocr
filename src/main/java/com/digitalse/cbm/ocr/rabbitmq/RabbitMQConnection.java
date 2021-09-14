@@ -1,12 +1,5 @@
 package com.digitalse.cbm.ocr.rabbitmq;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.amqp.core.AmqpAdmin;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.connection.SimplePropertyValueConnectionNameStrategy;
 import org.springframework.stereotype.Component;
 
 @Component

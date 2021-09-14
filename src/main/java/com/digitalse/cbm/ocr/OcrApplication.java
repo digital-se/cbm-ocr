@@ -1,11 +1,8 @@
 package com.digitalse.cbm.ocr;
 
-import java.io.IOException;
-
 import javax.annotation.PostConstruct;
 
-import com.digitalse.cbm.ocr.service.OcrService;
-import com.digitalse.cbm.ocr.service.QueueService;
+import com.digitalse.cbm.ocr.service.utils.BackHttpConnection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -17,9 +14,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class OcrApplication {
 
 	@Autowired
-	QueueService qs = new QueueService();
-	@Autowired
-	OcrService os;
+	BackHttpConnection backConnection;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(OcrApplication.class, args);
@@ -27,6 +23,6 @@ public class OcrApplication {
 
 	@PostConstruct
 	public void updateOcr() throws Exception {
-		qs.getListFromBack();
+		backConnection.getListFromBack();
 	}
 }

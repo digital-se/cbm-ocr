@@ -15,3 +15,5 @@ spring:
   #     port: ${env.RABBIT_PORT}
   #     username: ${env.RABBIT_USERNAME}
   #     password: ${env.RABBIT_PASSWORD}
+
+back-urn: ${env.BACK_URN}

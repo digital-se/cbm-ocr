@@ -28,5 +28,10 @@
     "name": "rabbitmq.port",
     "type": "java.lang.String",
     "description": "A description for 'rabbitmq.port'"
+  },
+  {
+    "name": "back-urn",
+    "type": "java.lang.String",
+    "description": "A description for 'back-urn'"
   }
 ]}

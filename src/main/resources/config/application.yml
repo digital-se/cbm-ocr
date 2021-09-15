@@ -2,7 +2,7 @@ server:
   port: 8083
 
 tesseract:
-  datapath: src/main/resources/tess/tessdata
+  datapath: /usr/local/share/tesseract-ocr/
   language: por
 
 spring:

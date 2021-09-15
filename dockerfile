@@ -8,6 +8,8 @@ RUN mvn -B -f pom.xml clean package -DskipTests -Dhttps.protocols=TLSv1.2
 FROM openjdk:15-jdk-slim
 RUN apt-get update
 RUN apt-get install tesseract-ocr -y
+RUN mkdir -p /usr/share/tessdata
+ADD https://github.com/tesseract-ocr/tessdata/raw/master/por.traineddata /usr/share/tessdata/por.traineddata
 COPY --from=build /workspace/target/*.jar app.jar
 EXPOSE 8083
 ENV LC_ALL C

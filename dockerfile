@@ -10,5 +10,5 @@ RUN apt-get update
 RUN apt-get install tesseract-ocr -y
 COPY --from=build /workspace/target/*.jar app.jar
 EXPOSE 8083
-ENV LC_ALL c
+ENV LC_ALL C
 ENTRYPOINT ["java","-jar","app.jar"]

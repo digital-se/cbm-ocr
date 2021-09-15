@@ -29,7 +29,7 @@ public class QueueService {
             System.out.println("Queue atualizada: " + queue.toString());
             ocrService.realizarScan();
         } catch (Exception e) {
-            //throw new Exception("Error: " + e.getMessage() + "\n");
+            throw new Exception("Error: " + e.getMessage() + "\n");
         }
     }
 

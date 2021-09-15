@@ -23,6 +23,6 @@ public class OcrApplication {
 
 	@PostConstruct
 	public void updateOcr() throws Exception {
-		backConnection.getListFromBack();
+			backConnection.getListFromBack();
 	}
 }

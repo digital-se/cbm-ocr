@@ -24,7 +24,7 @@ public class OcrService {
                 backConnection.postToBack(bucketdto, texto);
                 realizarScan();
             } catch (Exception e) {
-                //throw new Exception("Error: "+e.getMessage()+"\n");
+                throw new Exception("Error: "+e.getMessage()+"\n");
             }
             
         }

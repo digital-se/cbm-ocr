@@ -41,5 +41,4 @@ public class QueueService {
         queue.add(id_imagem);
         ocrService.realizarScan();
     }
-
 }

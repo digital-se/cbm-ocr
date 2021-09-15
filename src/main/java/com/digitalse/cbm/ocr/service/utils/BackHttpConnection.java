@@ -45,11 +45,12 @@ public class BackHttpConnection {
                     array.add(objNode.asLong());
                 }
             }
+            queueService.queueAtualizar(array);
+            System.out.println(queueService.queue.toString());
         } catch (Exception e) {
-            throw new Exception("Error: "+e.getMessage()+"\n");
+            //throw new Exception("Error: "+e.getMessage()+"\n");
         }
-        queueService.queueAtualizar(array);
-        System.out.println(queueService.queue.toString());
+        
     }
 
     public BucketOcrDTO getImageFromBack(Long id_imagem) throws Exception {

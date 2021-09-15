@@ -1,6 +1,7 @@
 package com.digitalse.cbm.ocr.service.utils;
 
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 @Component
@@ -45,11 +47,14 @@ public class BackHttpConnection {
                     array.add(objNode.asLong());
                 }
             }
+            queueService.queueAtualizar(array);
+            System.out.println(queueService.queue.toString());
+        } catch (ResourceAccessException | ConnectException e) {
+            System.out.println("Connection Failed");
         } catch (Exception e) {
             throw new Exception("Error: "+e.getMessage()+"\n");
         }
-        queueService.queueAtualizar(array);
-        System.out.println(queueService.queue.toString());
+        
     }
 
     public BucketOcrDTO getImageFromBack(Long id_imagem) throws Exception {

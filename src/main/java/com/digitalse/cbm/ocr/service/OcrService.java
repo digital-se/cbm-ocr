@@ -22,10 +22,11 @@ public class OcrService {
                 System.out.println("Scanning text on bucket: " + bucketdto.getId());
                 String texto = tessService.recognize(bucketdto.getDados());
                 backConnection.postToBack(bucketdto, texto);
+                realizarScan();
             } catch (Exception e) {
                 throw new Exception("Error: "+e.getMessage()+"\n");
             }
-            realizarScan();
+            
         }
         System.out.println("Getting idle...");
     }

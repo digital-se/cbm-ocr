@@ -23,10 +23,14 @@ public class QueueService {
     }
 
     public void queueAtualizar(List<Long> lista) throws Exception {
-        queue.clear();
-        queue.addAll(lista);
-        System.out.println("Queue atualizada: " + queue.toString());
-        ocrService.realizarScan();
+        try {
+            queue.clear();
+            queue.addAll(lista);
+            System.out.println("Queue atualizada: " + queue.toString());
+            ocrService.realizarScan();
+        } catch (Exception e) {
+            throw new Exception("Error: " + e.getMessage() + "\n");
+        }
     }
 
     public BucketOcrDTO getImage() throws Exception {
@@ -37,7 +41,4 @@ public class QueueService {
         queue.add(id_imagem);
         ocrService.realizarScan();
     }
-
-    
-
 }

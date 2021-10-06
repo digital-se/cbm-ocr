@@ -1,23 +1,13 @@
 package com.digitalse.cbm.ocr.controller;
 
-import java.util.List;
-
-import com.digitalse.cbm.ocr.service.QueueService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping
 public class OcrController {
 
-	@Autowired
+	/* @Autowired
 	private QueueService queueService;
 
 	@PostMapping("/ocr/queue/atualizar")
@@ -32,6 +22,6 @@ public class OcrController {
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
 		}
-	}
+	} */
 
 }

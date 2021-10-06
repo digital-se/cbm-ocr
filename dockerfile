@@ -1,4 +1,6 @@
 FROM maven:3.8.1-openjdk-15-slim AS build
+RUN apt-get update
+RUN apt-get install tesseract-ocr -y
 RUN mkdir -p /workspace
 WORKDIR /workspace
 COPY pom.xml /workspace

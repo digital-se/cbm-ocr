@@ -2,7 +2,7 @@ package com.digitalse.cbm.ocr.service;
 
 import java.io.IOException;
 
-import com.digitalse.cbm.rabbitmqtransferenceobjects.RTOBucket;
+import com.digitalse.cbm.ocr.rto.RTOBucket;
 
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -23,6 +23,7 @@ public class RabbitmqService {
 
     @RabbitListener(queues = "ocr")
     public RTOBucket listener(RTOBucket rtoBucket) throws Exception {
+        System.out.println("Received image with id "+rtoBucket.getId());
         byte[] imagem_processada = rtoBucket.getDados_processados();
         String texto = ts.recognize(imagem_processada);
         rtoBucket.setTexto(texto);

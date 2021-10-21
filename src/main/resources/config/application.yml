@@ -10,10 +10,10 @@ spring:
     multipart:
       max-file-size: 128MB
       max-request-size: 128MB
-  # rabbitmq:
-  #     host: ${env.RABBIT_HOST}
-  #     port: ${env.RABBIT_PORT}
-  #     username: ${env.RABBIT_USERNAME}
-  #     password: ${env.RABBIT_PASSWORD}
+  rabbitmq:
+      host: ${env.RABBIT_HOST}
+      port: 5672
+      username: ${env.RABBIT_USERNAME}
+      password: ${env.RABBIT_PASSWORD}
 
 back-urn: ${env.BACK_URN}

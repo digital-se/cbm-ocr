@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "tesseract.datapath",
+    "type": "java.lang.String",
+    "description": "A description for 'tesseract.datapath'"
+  },
+  {
+    "name": "tesseract.language",
+    "type": "java.lang.String",
+    "description": "A description for 'tesseract.language'"
+  },
+  {
+    "name": "rabbitmq.host",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.host'"
+  },
+  {
+    "name": "rabbitmq.password",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.password'"
+  },
+  {
+    "name": "rabbitmq.username",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.username'"
+  },
+  {
+    "name": "rabbitmq.port",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.port'"
+  },
+  {
+    "name": "back-urn",
+    "type": "java.lang.String",
+    "description": "A description for 'back-urn'"
+  }
+]}

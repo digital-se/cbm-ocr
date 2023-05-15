@@ -1,0 +1,17 @@
+server:
+  port: 8083
+
+tesseract:
+  datapath: src/main/resources/tess/tessdata
+  language: por
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+  rabbitmq:
+      host: ${RABBIT_HOST}
+      port: ${RABBIT_HOST}
+      username: ${RABBIT_USERNAME}
+      password: ${RABBIT_PASSWORD}
